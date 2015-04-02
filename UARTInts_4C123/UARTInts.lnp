@@ -1,0 +1,23 @@
+--cpu Cortex-M4
+".\startup.o"
+".\pll.o"
+".\uart.o"
+".\adc.o"
+".\interpreter.o"
+".\retarget.o"
+".\os.o"
+".\st7735.o"
+".\osasm.o"
+".\cr4_fft_64_stm32.o"
+".\pid_stm32.o"
+".\lab5.o"
+".\edisk.o"
+".\gpio.o"
+".\sysctl.o"
+".\ssi.o"
+".\cpu.o"
+".\interrupt.o"
+".\efile.o"
+--ro-base 0x00000000 --entry 0x00000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\UARTInts.map" -o .\UARTInts.axf
