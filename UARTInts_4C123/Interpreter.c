@@ -13,12 +13,14 @@ Interpreter was written to allow the user to send commands to the LCD, UART, ADC
 #include "ST7735.h"
 #include "OS.h"
 #include "Lab2.h"
+#include "efile.h"
 extern int Fset;
 extern int Dset;
 extern unsigned long ADCarray[102];
 extern unsigned long ADCarray2[102];
 extern long FFTOutput[64];
 extern long Y[102];
+extern int StreamToFile; // 0 = uart, 1 = file
 
 /*copied from periodic32bitT0Ints.c*/
 #define PF1       (*((volatile uint32_t *)0x40025008))
@@ -109,6 +111,14 @@ void Interpreter(){
 	//	OutLine1();
 	//	printf("ADC_Soft,channelnum,freq");
 	//	OutLine1();
+		printf("Format");
+		OutLine1();
+		printf("Directory");
+		OutLine1();
+		printf("PrintFile");
+		OutLine1();
+		printf("DeleteFile");
+		OutLine1();
 		printf("ADC_Print");
 		OutLine1();
 		printf("FFT_Print");
@@ -150,6 +160,20 @@ void Interpreter(){
 				printf ("ADC_Timer Input: %lu", ADCarray[m]);
 				OutLine1();
 			}
+		}
+		else if (strcmp("Format", cd2) == 0){
+		// not sure
+		}
+		else if (strcmp("Directory", cd2) == 0){
+		// print the directory
+		}
+		else if (strcmp("PrintFile", cd2) == 0){
+			cd2=strtok(NULL,",");
+		// eFile_Print(cd2);
+		}
+		else if (strcmp("DeleteFile", cd2) == 0){
+			cd2=strtok(NULL,",");
+			eFile_Delete(cd2);
 		}
 		/*else if (strcmp("FIR_Print", cd2) == 0){
 			int m;

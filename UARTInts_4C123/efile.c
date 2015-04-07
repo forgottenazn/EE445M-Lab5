@@ -1,6 +1,9 @@
 // filename ************** eFile.h *****************************
 // Middle-level routines to implement a solid-state disk 
 // Jonathan W. Valvano 3/16/11
+#include "Integer.h"
+
+int StreamToFile=0; // 0=UART, 1=stream to file
 
 //---------- eFile_Init-----------------
 // Activate the file system, without formating
@@ -106,14 +109,23 @@ int eFile_Delete( char name[]){  // remove this file
 // Input: file name is a single ASCII letter
 // stream printf data into file
 // Output: 0 if successful and 1 on failure (e.g., trouble read/write to flash)
-int eFile_RedirectToFile(char *name){
-	return 1;
-}
 
+int eFile_RedirectToFile(char *name){
+ eFile_Create(name); // ignore error if file already exists
+ if(eFile_WOpen(name)) return 1; // cannot open file
+ StreamToFile = 1;
+ return 0;
+}
 //---------- eFile_EndRedirectToFile-----------------
 // close the previously open file
 // redirect printf data back to UART
 // Output: 0 if successful and 1 on failure (e.g., wasn't open)
+
+
 int eFile_EndRedirectToFile(void){
-	return 1;
+ StreamToFile = 0;
+ if(eFile_WClose()) return 1; // cannot close file
+ return 0;
 }
+
+

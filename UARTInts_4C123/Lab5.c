@@ -127,8 +127,8 @@ int RunStop = 0; // 0 = stop, 1 = run for the display
 // outputs: none
 void Robot(void){   
 unsigned long data;      // ADC sample, 0 to 1023
-unsigned int voltage;   // in mV,      0 to 3000
-unsigned int time;      // in 10msec,  0 to 1000 
+unsigned long voltage;   // in mV,      0 to 3000
+unsigned long time;      // in 10msec,  0 to 1000 
 unsigned long t=0;
   OS_ClearMsTime();    
   DataLost = 0;          // new run with no lost data 
@@ -279,6 +279,41 @@ void TestDisk(void){  DSTATUS result;  unsigned short block;  int i; unsigned lo
   printf("Successful test of %u blocks\n\r",MAXBLOCKS);
   OS_Kill();
 }
+
+void TestDisk2(void){  DSTATUS result;  unsigned short block;  int i; unsigned long n;
+  // simple test of eDisk
+  printf("\n\rEE345M/EE380L, Lab 5 eDisk test\n\r");
+  result = eDisk_Init(0);  // initialize disk
+  if(result) diskError("eDisk_Init",result);
+  printf("Writing blocks\n\r");
+  n = 1;    // seed
+  for(block = 0; block < MAXBLOCKS; block++){
+    for(i=0;i<512;i++){
+      n = (16807*n)%2147483647; // pseudo random sequence
+      buffer[i] = 0xFF&n;        
+    }
+    GPIO_PF3 = 0x08;     // PF3 high for 100 block writes
+    if(eDisk_WriteBlock(buffer,block))diskError("eDisk_WriteBlock",block); // save to disk
+    GPIO_PF3 = 0x00;     
+  }  
+  printf("Reading blocks\n\r");
+  n = 1;  // reseed, start over to get the same sequence
+  for(block = 0; block < MAXBLOCKS; block++){
+    GPIO_PF2 = 0x04;     // PF2 high for one block read
+    if(eDisk_ReadBlock(buffer,block))diskError("eDisk_ReadBlock",block); // read from disk
+    GPIO_PF2 = 0x00;
+    for(i=0;i<512;i++){
+      n = (16807*n)%2147483647; // pseudo random sequence
+      if(buffer[i] != (0xFF&n)){
+        printf("Read data not correct, block=%u, i=%u, expected %u, read %u\n\r",block,i,(0xFF&n),buffer[i]);
+        OS_Kill();
+      }      
+    }
+  }  
+  printf("Successful test of %u blocks\n\r",MAXBLOCKS);
+  OS_Kill();
+}
+
 void RunTest(void){
   NumCreated += OS_AddThread(&TestDisk,128,1);  
 }
@@ -325,6 +360,36 @@ void TestFile(void){   int i; char data;
     UART_OutChar(data);
   }
   if(eFile_Delete("file1"))     diskError("eFile_Delete",0);
+  eFile_Directory(&UART_OutChar);
+  printf("Successful test of creating a file\n\r");
+  OS_Kill();
+}
+void TestFile2(void){   int i; char data; 
+  printf("\n\rEE345M/EE380L, Lab 5 eFile test\n\r");
+  // simple test of eFile
+  if(eFile_Init())              diskError("eFile_Init",0); 
+  if(eFile_Format())            diskError("eFile_Format",0); 
+  eFile_Directory(&UART_OutChar);
+	if(!eFile_WClose())           diskError("eFile_Close",1);
+	if(!eFile_Delete("file2"))    diskError("eFile_Delete",1);
+	//if(!eFile_Write('a',1);
+  if(eFile_Create("file2"))     diskError("eFile_Create",0);
+  if(eFile_WOpen("file2"))      diskError("eFile_WOpen",0);
+  for(i=0;i<1000;i++){
+    if(eFile_Write('a'+i%26))   diskError("eFile_Write",i);
+    if(i%52==51){
+      if(eFile_Write('\n'))     diskError("eFile_Write",i);  
+      if(eFile_Write('\r'))     diskError("eFile_Write",i);
+    }
+  }
+  if(eFile_WClose())            diskError("eFile_Close",0);
+  eFile_Directory(&UART_OutChar);
+  if(eFile_ROpen("file2"))      diskError("eFile_ROpen",0);
+  for(i=0;i<1000;i++){
+    if(eFile_ReadNext(&data))   diskError("eFile_ReadNext",i);
+    UART_OutChar(data);
+  }
+  if(eFile_Delete("file2"))     diskError("eFile_Delete",0);
   eFile_Directory(&UART_OutChar);
   printf("Successful test of creating a file\n\r");
   OS_Kill();

@@ -10,3 +10,4 @@
 .\interpreter.o: ST7735.h
 .\interpreter.o: OS.h
 .\interpreter.o: Lab2.h
+.\interpreter.o: efile.h

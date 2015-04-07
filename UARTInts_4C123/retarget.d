@@ -4,3 +4,4 @@
 .\retarget.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
 .\retarget.o: UART.h
 .\retarget.o: tm4c123gh6pm.h
+.\retarget.o: efile.h

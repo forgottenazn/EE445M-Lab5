@@ -83,6 +83,16 @@
           <Path>DATASHTS\Luminary\LM3S101.PDF</Path>
         </Book>
       </Books>
+      <DllOpt>
+        <SimDllName>SARMCM3.DLL</SimDllName>
+        <SimDllArguments></SimDllArguments>
+        <SimDlgDllName>DLM.DLL</SimDlgDllName>
+        <SimDlgDllArguments>-pLM3S101</SimDlgDllArguments>
+        <TargetDllName>SARMCM3.DLL</TargetDllName>
+        <TargetDllArguments></TargetDllArguments>
+        <TargetDlgDllName>TLM.DLL</TargetDlgDllName>
+        <TargetDlgDllArguments>-pLM3S101</TargetDlgDllArguments>
+      </DllOpt>
       <DebugOpt>
         <uSim>1</uSim>
         <uTrg>0</uTrg>
@@ -94,16 +104,12 @@
         <sRfunc>1</sRfunc>
         <sRbox>1</sRbox>
         <tLdApp>1</tLdApp>
-        <tGomain>1</tGomain>
+        <tGomain>0</tGomain>
         <tRbreak>1</tRbreak>
         <tRwatch>1</tRwatch>
         <tRmem>1</tRmem>
         <tRfunc>0</tRfunc>
         <tRbox>1</tRbox>
-        <tRtrace>0</tRtrace>
-        <sRSysVw>1</sRSysVw>
-        <tRSysVw>1</tRSysVw>
-        <tPdscDbg>1</tPdscDbg>
         <sRunDeb>0</sRunDeb>
         <sLrtime>0</sLrtime>
         <nTsel>3</nTsel>
@@ -122,19 +128,10 @@
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
-          <Key>UL2CM3</Key>
-          <Name>UL2CM3(-UU0101L5E -O14 -S0 -C0 -N00("ARM Cortex-M3") -D00(1BA00477) -L00(4) -FO7 -FD20000000 -FC800 -FN1 -FF0LM3S_8 -FS00 -FL02000)</Name>
-        </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
           <Key>lmidk-agdi</Key>
           <Name>-O4622 -S3 -FO29</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint/>
-      <Tracepoint>
-        <THDelay>0</THDelay>
-      </Tracepoint>
       <DebugFlag>
         <trace>0</trace>
         <periodic>1</periodic>
@@ -171,7 +168,6 @@
     <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
-    <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>1</GroupNumber>
       <FileNumber>1</FileNumber>
@@ -185,8 +181,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\adc.c</PathWithFileName>
       <FilenameWithoutPath>adc.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -201,8 +195,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\can.c</PathWithFileName>
       <FilenameWithoutPath>can.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -217,8 +209,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\comp.c</PathWithFileName>
       <FilenameWithoutPath>comp.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -233,8 +223,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\cpu.c</PathWithFileName>
       <FilenameWithoutPath>cpu.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -249,8 +237,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\eeprom.c</PathWithFileName>
       <FilenameWithoutPath>eeprom.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -265,8 +251,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\epi.c</PathWithFileName>
       <FilenameWithoutPath>epi.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -281,8 +265,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\ethernet.c</PathWithFileName>
       <FilenameWithoutPath>ethernet.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -297,8 +279,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\fan.c</PathWithFileName>
       <FilenameWithoutPath>fan.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -313,8 +293,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\flash.c</PathWithFileName>
       <FilenameWithoutPath>flash.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -329,8 +307,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\fpu.c</PathWithFileName>
       <FilenameWithoutPath>fpu.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -345,8 +321,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\gpio.c</PathWithFileName>
       <FilenameWithoutPath>gpio.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -361,8 +335,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\hibernate.c</PathWithFileName>
       <FilenameWithoutPath>hibernate.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -377,8 +349,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\i2c.c</PathWithFileName>
       <FilenameWithoutPath>i2c.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -393,8 +363,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\i2s.c</PathWithFileName>
       <FilenameWithoutPath>i2s.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -409,8 +377,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\interrupt.c</PathWithFileName>
       <FilenameWithoutPath>interrupt.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -425,8 +391,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\lpc.c</PathWithFileName>
       <FilenameWithoutPath>lpc.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -441,8 +405,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\mpu.c</PathWithFileName>
       <FilenameWithoutPath>mpu.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -457,8 +419,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\peci.c</PathWithFileName>
       <FilenameWithoutPath>peci.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -473,8 +433,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\pwm.c</PathWithFileName>
       <FilenameWithoutPath>pwm.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -489,8 +447,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\qei.c</PathWithFileName>
       <FilenameWithoutPath>qei.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -505,8 +461,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\ssi.c</PathWithFileName>
       <FilenameWithoutPath>ssi.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -521,8 +475,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\sysctl.c</PathWithFileName>
       <FilenameWithoutPath>sysctl.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -537,8 +489,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\sysexc.c</PathWithFileName>
       <FilenameWithoutPath>sysexc.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -553,8 +503,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\systick.c</PathWithFileName>
       <FilenameWithoutPath>systick.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -569,8 +517,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\timer.c</PathWithFileName>
       <FilenameWithoutPath>timer.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -585,8 +531,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\uart.c</PathWithFileName>
       <FilenameWithoutPath>uart.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -601,8 +545,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\udma.c</PathWithFileName>
       <FilenameWithoutPath>udma.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -617,8 +559,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\usb.c</PathWithFileName>
       <FilenameWithoutPath>usb.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -633,8 +573,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\watchdog.c</PathWithFileName>
       <FilenameWithoutPath>watchdog.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
     </File>
   </Group>
 
@@ -643,7 +581,6 @@
     <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
-    <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>2</GroupNumber>
       <FileNumber>30</FileNumber>
@@ -657,8 +594,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\readme.txt</PathWithFileName>
       <FilenameWithoutPath>readme.txt</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
       <WindowPosition>
         <length>44</length>
         <flags>0</flags>
@@ -680,5 +615,22 @@
       </WindowPosition>
     </File>
   </Group>
+
+  <MDIGroups>
+    <Orientation>1</Orientation>
+    <ActiveMDIGroup>0</ActiveMDIGroup>
+    <MDIGroup>
+      <Size>100</Size>
+      <ActiveTab>0</ActiveTab>
+      <Documents>
+        <Doc>
+          <Name>.\readme.txt</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>1</CurrentLine>
+        </Doc>
+      </Documents>
+    </MDIGroup>
+  </MDIGroups>
 
 </ProjectOpt>
