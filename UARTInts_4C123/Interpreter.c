@@ -162,7 +162,11 @@ void Interpreter(){
 			}
 		}
 		else if (strcmp("Format", cd2) == 0){
-		// not sure
+			if(eFile_Format())
+				printf("Successful Formatting");
+			else
+				printf("Formatting Unsuccessful");
+			OutLine1();
 		}
 		else if (strcmp("Directory", cd2) == 0){
 		// print the directory
