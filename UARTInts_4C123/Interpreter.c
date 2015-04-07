@@ -151,13 +151,13 @@ void Interpreter(){
 				OutLine1();
 			}
 		}
-		/*else if (strcmp("FIR_Print", cd2) == 0){
+		else if (strcmp("FIR_Print", cd2) == 0){
 			int m;
 			for (m=0; m < 51; m++){
 				printf ("FIR output: %ld", Y[m]);
 				OutLine1();
 			}
-		}*/
+		}
 		else if (strcmp("FFT_Print", cd2) == 0){
 			int m;
 			for (m=0; m < 64; m++){

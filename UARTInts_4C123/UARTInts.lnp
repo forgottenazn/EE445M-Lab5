@@ -9,6 +9,7 @@
 ".\st7735.o"
 ".\osasm.o"
 ".\cr4_fft_64_stm32.o"
+".\pid_stm32.o"
 ".\lab5.o"
 ".\edisk.o"
 ".\gpio.o"
