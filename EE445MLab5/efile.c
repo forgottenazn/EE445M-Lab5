@@ -5,6 +5,7 @@
 int StreamToFile=0; // 0=UART, 1=stream to file
 
 #include "edisk.h"
+#include <stdio.h>
 
 #define DIRECTORY_FILE_SIZE 3//size of individual files in the directory block
 #define BLOCK_SIZE 512	//size of blocks in bytes
@@ -166,6 +167,14 @@ int eFile_Create( char name[]){  // create new file, make it empty
 	if(!(blockIndex == NULL)){
 		//A block is available; use it
 		directoryEntry.startIndex = blockIndex;
+	}
+
+	//Search if file of same name already exists
+	for(directoryPtr = 0; directoryPtr < BLOCK_SIZE - 1; directoryPtr += DIRECTORY_FILE_SIZE){
+		if(directoryBuffer[directoryPtr] == name[0]){
+			//Error: file already exists
+			return 1;
+		}
 	}
 
 
@@ -511,6 +520,8 @@ int eFile_RClose(void){ // close the file for writing
 //         0 if successful and 1 on failure (e.g., trouble reading from flash)
 int eFile_Directory(void(*fp)(char)){
 	int directoryPtr;
+	char buffer[10];
+	char *data;
 	if(eDisk_ReadBlock(directoryBuffer, 0)){
 			//Error occured
 			return 1;
@@ -520,7 +531,12 @@ int eFile_Directory(void(*fp)(char)){
 	for(directoryPtr = 0; directoryPtr < BLOCK_SIZE - 1; directoryPtr+=DIRECTORY_FILE_SIZE){
 		if (directoryBuffer[directoryPtr]){ // if the file isn't null
 			fp(directoryBuffer[directoryPtr]); // name
-			fp(directoryBuffer[directoryPtr+2]); // size
+			sprintf(buffer, "%d", directoryBuffer[directoryPtr+2]);
+			data = buffer;
+			while(*data != 0){
+				fp(*data);
+				data++;
+			}
 		}
 	}
 	return 0;
@@ -591,7 +607,9 @@ int eFile_Delete( char name[]){  // remove this file
 
 int eFile_RedirectToFile(char *name){
  eFile_Create(name); // ignore error if file already exists
- if(eFile_WOpen(name)) return 1; // cannot open file
+ if(eFile_WOpen(name)){
+	 return 1; // cannot open file
+ }
  StreamToFile = 1;
  return 0;
 }
@@ -603,6 +621,12 @@ int eFile_RedirectToFile(char *name){
 
 int eFile_EndRedirectToFile(void){
  StreamToFile = 0;
- if(eFile_WClose()) return 1; // cannot close file
+ if(eFile_WClose()){
+	 return 1; // cannot close file
+ }
  return 0;
+}
+
+int streamToFile(void){
+	return StreamToFile;
 }

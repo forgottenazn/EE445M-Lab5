@@ -149,6 +149,8 @@ int main(void){        // lab 5 real main
   NumCreated += OS_AddThread(&Interpreter,128,2); 
   NumCreated += OS_AddThread(&IdleTask,128,7);  // runs when nothing useful to do
  
+	eFile_Init();
+	eFile_Format();
   OS_Launch(TIMESLICE); // doesn't return, interrupts enabled in here
   return 0;             // this never executes
 }

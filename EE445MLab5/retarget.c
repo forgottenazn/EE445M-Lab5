@@ -29,14 +29,14 @@ FILE __stdin;
 
 
 #include "efile.h"
-extern int StreamToFile;
+
 int fputc (int ch, FILE *f) {
- if(StreamToFile){
- if(eFile_Write(ch)){ // close file on error
- eFile_EndRedirectToFile(); // cannot write to file
- return 1; // failure
- }
- return 0; // success writing
+ if(streamToFile()){
+	if(eFile_Write(ch)){ // close file on error
+		eFile_EndRedirectToFile(); // cannot write to file
+		return 1; // failure
+	}
+	return 0; // success writing
  }
  // regular UART output
  UART_OutChar(ch);

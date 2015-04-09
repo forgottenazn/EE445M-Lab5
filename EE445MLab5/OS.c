@@ -108,6 +108,9 @@ void Timer1_Init(void){
   EndCritical(sr);
 }
 
+void Timer1A_Handler(void){
+  TIMER1_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer1A timeout
+}
 
 /*****************************Public OS Functions******************************/
 // ******** OS_Init ************
@@ -425,7 +428,6 @@ void static DebounceTaskPF4(void){
 
 void GPIOPortF_Handler(void){
   if(GPIO_PORTF_MIS_R & 0x00000010){
-		PE4 ^= 0x10;
     //PF4 Event
     GPIO_PORTF_IM_R &= ~0x10; //Disarm interrupt on PF4
     GPIO_PORTF_ICR_R = 0x10;  //clear flag4
@@ -436,9 +438,8 @@ void GPIOPortF_Handler(void){
       return;
     }
     if(LastPF4 & 0x00000010){   //If previous was high this is falling edge
-      (*switchTask)();
+      (*switchTaskPF4)();
     }
-		PE4 ^= 0x10;
   }
 }
 
@@ -491,7 +492,7 @@ unsigned long OS_MailBox_Recv(void){
 //    e.g., must be a power of 2,4,8,16,32,64,128
 
 /*ignoring size parameter and using predefined value instead for lab 2*/
-#define FIFO_SIZE 256
+#define FIFO_SIZE 512
 unsigned long fifo[FIFO_SIZE];
 Sema4Type mutex;
 Sema4Type currentSize;
@@ -620,12 +621,6 @@ unsigned long OS_ReadPeriodicTime(void){
 	return TIMER5_TAR_R;
 }
 
-
-void Timer1A_Handler(void){
-  TIMER1_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer1A timeout
-  (*PeriodicTask)();                // execute user task
-}
-
 // ******** OS_Time ************
 // return the system time
 // Inputs:  none
@@ -654,7 +649,7 @@ unsigned long OS_TimeDifference(unsigned long start, unsigned long stop){
 // Outputs: none
 // You are free to change how this works
 void OS_ClearMsTime(void){
-	TIMER1_TAR_R = 0;
+	TIMER1_TAILR_R = 0xFFFFFFFF - 1;
 }
 
 // ******** OS_MsTime ************
@@ -664,7 +659,7 @@ void OS_ClearMsTime(void){
 // You are free to select the time resolution for this function
 // It is ok to make the resolution to match the first call to OS_AddPeriodicThread
 unsigned long OS_MsTime(void){
-	return TIMER1_TAR_R / TIME_1MS;
+	return (0xFFFFFFFF - TIMER1_TAR_R) / (TIME_1MS * 10);
 }
 
 
