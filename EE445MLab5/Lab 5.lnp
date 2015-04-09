@@ -1,0 +1,15 @@
+--cpu Cortex-M4
+".\edisk.o"
+".\efile.o"
+".\interpreter.o"
+".\lab5.o"
+".\os.o"
+".\retarget.o"
+".\uart.o"
+".\startup.o"
+".\osasm.o"
+".\pll.o"
+".\adc.o"
+--ro-base 0x00000000 --entry 0x00000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Lab 5.map" -o ".\Lab 5.axf"
