@@ -129,7 +129,7 @@ extern void Interpreter(void);
 // execute   eFile_Init();  after periodic interrupts have started
 
 //*******************lab 5 main **********
-int main(void){        // lab 5 real main
+int realmain(void){        // lab 5 real main
   OS_Init();           // initialize, disable interrupts
   Running = 0;         // robot not running
   DataLost = 0;        // lost data between producer and consumer
@@ -246,11 +246,42 @@ void TestFile(void){   int i; char data;
   printf("Successful test of creating a file\n\r");
   OS_Kill();
 }
-
+void TestFile2(void){   int i; char data; 
+  printf("\n\rEE345M/EE380L, Lab 5 eFile test\n\r");
+  // simple test of eFile
+  if(eFile_Init())              diskError("eFile_Init",0); 
+  if(eFile_Format())            diskError("eFile_Format",0); 
+  eFile_Directory(&UART_OutChar);
+	if(!eFile_WClose())           diskError("eFile_Close",1);
+	if(!eFile_Delete("file2"))    diskError("eFile_Delete",1);
+	//if(!eFile_Write('a',1);
+  if(eFile_Create("file2"))     diskError("eFile_Create",0);
+	if(eFile_Create("d"))     diskError("eFile_Create",1);
+  if(eFile_WOpen("file2"))      diskError("eFile_WOpen",0);
+  for(i=0;i<1000;i++){
+    if(eFile_Write('a'+i%26))   diskError("eFile_Write",i);
+    if(i%52==51){
+      if(eFile_Write('\n'))     diskError("eFile_Write",i);  
+      if(eFile_Write('\r'))     diskError("eFile_Write",i);
+    }
+  }
+	if(!eFile_WOpen("d"))					diskError("eFile_WOpen",1);
+  if(eFile_WClose())            diskError("eFile_Close",0);
+  eFile_Directory(&UART_OutChar);
+  if(eFile_ROpen("file2"))      diskError("eFile_ROpen",0);
+  for(i=0;i<1000;i++){
+    if(eFile_ReadNext(&data))   diskError("eFile_ReadNext",i);
+    UART_OutChar(data);
+  }
+  if(eFile_Delete("file2"))     diskError("eFile_Delete",0);
+  eFile_Directory(&UART_OutChar);
+  printf("Successful test of creating a file\n\r");
+  OS_Kill();
+}
 //******************* test main2 **********
 // SYSTICK interrupts, period established by OS_Launch
 // Timer interrupts, period established by first call to OS_AddPeriodicThread
-int testmain2(void){ 
+int main2(void){ 
   OS_Init();           // initialize, disable interrupts
 
 //*******attach background tasks***********
@@ -263,4 +294,37 @@ int testmain2(void){
  
   OS_Launch(10*TIME_1MS); // doesn't return, interrupts enabled in here
   return 0;               // this never executes
+}
+
+
+int main(void){
+	char data;
+	OS_Init();
+	GPIO_Init();
+	//int time1, time2, time3, band1, band2;
+	printf("\n\rBandwidth Test\n\r");
+  // simple test of eFile
+  if(eFile_Init())              diskError("eFile_Init",0); 
+  if(eFile_Format())            diskError("eFile_Format",0); 
+	if(eFile_Create("file2"))     diskError("eFile_Create",0);
+	if(eFile_Create("d"))     diskError("eFile_Create",1);
+  if(eFile_WOpen("file2"))      diskError("eFile_WOpen",0);
+	GPIO_PF2 ^= 4;
+	//time1 = OS_Time();
+	if(eFile_Write('a'))   diskError("eFile_Write",1);
+//	time2 = OS_TimeDifference(time1, OS_Time());
+	GPIO_PF2 ^= 4;
+	if(eFile_WClose())            diskError("eFile_Close",0);
+ // eFile_Directory(&UART_OutChar);
+  if(eFile_ROpen("file2"))      diskError("eFile_ROpen",0);
+	GPIO_PF3 ^= 8;
+//	time1 = OS_Time();
+	if(eFile_ReadNext(&data))   diskError("eFile_ReadNext",1);
+//	time3 = OS_TimeDifference(time1, OS_Time());
+	GPIO_PF3 ^= 8;
+	if(eFile_Delete("file2"))     diskError("eFile_Delete",0);
+
+//	printf("
+	
+	return 0;
 }
